@@ -64,15 +64,21 @@ WSGI_APPLICATION = 'consultorio.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'base_proyectoppi',
-        'USER': 'postgres',
-        'PASSWORD':'12345',
-        'HOST':'localhost',
-        'POST': '5432',
-        'ATOMIC_REQUESTS':True,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+#DATABASES = {
+    #'default': {
+       # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+       # 'NAME': 'base_proyectoppi',
+       # 'USER': 'postgres',
+        #'PASSWORD':'12345',
+        #'HOST':'localhost',
+        #'POST': '5432',
+        #'ATOMIC_REQUESTS':True,
+    #}
+#}
 
 
 # Password validation
