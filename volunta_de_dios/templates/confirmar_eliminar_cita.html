@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %} {# Usa 'contenido' según tu base.html #}
+<div class="registration-container">
+    <h2 class="text-center mb-4">Confirmar Eliminación de Cita</h2>
+    <p>¿Estás seguro de que quieres eliminar la cita de <strong>{{ cita.paciente.nombre }} {{ cita.paciente.apellido }}</strong> el día {{ cita.fecha }} a las {{ cita.hora }}?</p>
+
+    <form action="{% url 'eliminar_cita' cita.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+        <a href="{% url 'tabla_citas' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+    {# Puedes agregar scripts específicos aquí si los necesitas #}
+{% endblock extra_js %}

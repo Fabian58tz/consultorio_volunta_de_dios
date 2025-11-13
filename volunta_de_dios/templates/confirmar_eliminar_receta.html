@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="registration-container">
+    <h2>Confirmar Eliminación de Receta</h2>
+    <p>¿Estás seguro de que quieres eliminar la receta para <strong>{{ receta.paciente.nombre }} {{ receta.paciente.apellido }}</strong> (Medicamento: {{ receta.nombre_medicamento }})?</p>
+    
+    <form action="{% url 'eliminar_receta' receta.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+        <a href="{% url 'tabla_de_recetas_de_pacientes' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+   <script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock extra_js %}

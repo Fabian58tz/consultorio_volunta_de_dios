@@ -1,0 +1,140 @@
+.registration-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto; /* Más margen superior/inferior */
+    padding: 30px; /* Más padding interno */
+    border: none; /* Eliminamos el borde simple */
+    border-radius: 8px; /* Bordes ligeramente más redondeados */
+    background-color: #ffffff; /* Fondo blanco */
+    /* Sombra para darle un efecto de "tarjeta" moderna */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente limpia */
+}
+
+h2 {
+    /* Estilo para el título "Registro de nuevo paciente" */
+    text-align: center;
+    color: #303030;
+    margin-bottom: 30px;
+    font-weight: 500; /* Fuente más ligera */
+}
+
+/* ======================================= */
+/* 2. GRUPOS DE FORMULARIO Y ETIQUETAS */
+/* ======================================= */
+.form-group {
+    margin-bottom: 18px; /* Más espacio entre campos */
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    width: 180px; /* Aumentamos el ancho de la etiqueta para mejor alineación */
+    text-align: right; /* ¡Clave! Alineamos el texto a la derecha */
+    margin-right: 20px;
+    font-weight: 600; /* Etiqueta en negrita para distinguirla */
+    color: #555;
+    flex-shrink: 0; /* Evita que el label se encoja */
+}
+
+/* ======================================= */
+/* 3. CAMPOS DE ENTRADA (INPUTS) */
+/* ======================================= */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    flex-grow: 1;
+    padding: 10px 12px; /* Más padding para que se vean más grandes */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #f9f9f9; /* Fondo muy claro para inputs */
+}
+
+/* Estilo de Foco (cuando el usuario hace clic) */
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff; /* Color primario azul */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Sombra suave para destacar */
+    background-color: #fff; /* Fondo blanco al enfocar */
+    outline: none;
+}
+
+/* Estilo específico para el área de texto (Dirección) */
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ======================================= */
+/* 4. BOTONES DE ACCIÓN */
+/* ======================================= */
+.form-actions {
+    margin-top: 30px;
+    padding-top: 15px;
+    text-align: right;
+    border-top: 1px solid #eee; /* Separador sutil */
+}
+
+.save-button,
+.cancel-button {
+    padding: 10px 25px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.save-button {
+    background-color: #007bff; /* Azul primario (profesional) */
+    color: white;
+}
+
+.save-button:hover {
+    background-color: #0056b3; /* Tono más oscuro al pasar el ratón */
+}
+
+.cancel-button {
+    background-color: #6c757d; /* Gris neutro (acción secundaria) */
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}
+
+/* ======================================= */
+/* 5. RESPONSIVE (Móvil) */
+/* ======================================= */
+@media (max-width: 600px) {
+    .registration-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .form-group {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-group label {
+        width: 100%;
+        text-align: left; /* Alineamos a la izquierda en móvil */
+        margin-bottom: 5px;
+        padding-right: 0;
+    }
+
+    .form-actions {
+        text-align: center; /* Centramos los botones en móvil */
+    }
+
+    .save-button,
+    .cancel-button {
+        display: block;
+        width: 100%;
+        margin: 10px 0 0 0; /* Espacio vertical para los botones */
+    }
+}

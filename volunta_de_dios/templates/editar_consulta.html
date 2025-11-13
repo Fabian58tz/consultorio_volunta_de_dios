@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/tabla_consulta.css' %}">
+<div class="consultation-container">
+    {# Añadimos el nombre del médico y paciente si la consulta existe para un mejor UX #}
+    <h2>Editar Consulta: 
+        {% if consulta %}
+            {{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }} con {% if consulta.medico %}{{ consulta.medico.nombre }} {{ consulta.medico.apellido }}{% else %}Médico no asignado{% endif %}
+        {% else %}
+            [Consulta no encontrada]
+        {% endif %}
+    </h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"></i> Guardar Cambios
+            </button>
+            {# ¡CORREGIDO! Cambiado 'tabla_consulta' a 'tabla_consultas' (plural) #}
+            <a href="{% url 'tabla_consulta' %}" class="btn btn-secondary"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+<script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock %}

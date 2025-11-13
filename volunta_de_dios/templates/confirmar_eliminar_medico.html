@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/agregar_pacientes.css' %}">
+<div class="container mt-4">
+    <h2>Confirmar Eliminación de Médico</h2>
+    <p>¿Estás seguro de que deseas eliminar al médico <strong>{{ medico.nombre }} {{ medico.apellido }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+        <a href="{% url 'tabla_medicos' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock %}

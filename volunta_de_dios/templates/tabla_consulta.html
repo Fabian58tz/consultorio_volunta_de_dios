@@ -1,0 +1,102 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/tabla_consulta.css' %}">
+<div class="citas-container"> {# Mantengo 'citas-container' por su estilo, pero lógicamente podría ser 'consultas-container' #}
+    <div class="citas-header">
+        <h2>Tabla de Consulta</h2> {# Mantengo "Tabla de Consulta" (singular) #}
+        <div class="citas-actions">
+            {# Botón para agregar una nueva consulta, enlaza a 'agregar_consulta' #}
+            <a href="{% url 'agregar_consulta' %}" class="btn btn-primary" id="addConsultaBtn"> {# ID corregido #}
+                <i class="bi bi-plus-lg"></i> Agregar Consulta {# Texto corregido #}
+            </a>
+            <div class="input-group search-bar">
+                <input type="text" class="form-control" placeholder="Buscar..." id="consultasSearch"> {# ID corregido #}
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-citas" id="consultasTable"> {# ID corregido #}
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>Médico</th>
+                    <th>Fecha de Consulta</th>
+                    <th>Diagnóstico</th>
+                    <th>Observaciones</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# CORREGIDO: Ahora iteramos sobre 'consultas', que es lo que tu vista 'tabla_consulta' debe pasar #}
+                {% for consulta in consultas %}
+                <tr>
+                    {# Accedemos a los atributos del objeto 'consulta' #}
+                    <td>{{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }}</td>
+                    <td>
+                        {% if consulta.medico %} {# Verificación para médico nulo #}
+                            {{ consulta.medico.nombre }} {{ consulta.medico.apellido }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>{{ consulta.fecha_consulta }}</td>
+                    <td>{{ consulta.diagnostico|truncatechars:50 }}</td> {# Limita la longitud del texto #}
+                    <td>{{ consulta.observaciones|truncatechars:50 }}</td> {# Limita la longitud del texto #}
+                    <td class="action-buttons">
+                        {# Enlaces de Editar y Eliminar, usando los objetos 'consulta' y sus PKs #}
+                        <a href="{% url 'editar_consulta' consulta.pk %}"  class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'eliminar_consulta' consulta.pk %}" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    {# El colspan debe coincidir con el número total de columnas en el thead (6 en este caso) #}
+                    <td colspan="6">No hay consultas registradas.</td> {# Texto corregido #}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+    <script src="{% static 'js/paguina_principal.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // CORREGIDO: IDs del input de búsqueda y tabla deben coincidir con el HTML
+            const searchInput = document.getElementById('consultasSearch');
+            const consultasTableBody = document.querySelector('#consultasTable tbody');
+            
+            // Verificar si los elementos existen antes de continuar
+            if (!searchInput || !consultasTableBody) {
+                console.warn("Elementos de búsqueda o tabla de consultas no encontrados. La función de búsqueda no funcionará.");
+                return;
+            }
+
+            const rows = consultasTableBody.querySelectorAll('tr');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const searchText = event.target.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock extra_js %}

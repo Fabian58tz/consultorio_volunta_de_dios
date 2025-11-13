@@ -1,0 +1,265 @@
+:root {
+   --primary-color: #A48640; /* Azul profesional para acciones y encabezados */
+    --secondary-color: #007bff;
+    --text-color: #343a40;
+    --light-gray: #f8f9fa; /* Fondo de filas pares */
+    --border-color: #dee2e6;
+    --edit-color: #ffc107; /* Amarillo para Editar */
+    --delete-color: #dc3545; /* Rojo para Eliminar */
+}
+
+/* ======================================= */
+/* 2. CONTENEDOR PRINCIPAL Y CABECERA */
+/* ======================================= */
+.citas-container {
+    width: 95%;
+    max-width: 1200px; /* Hacemos el contenedor más amplio */
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.citas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    /* Asegura que el botón y la búsqueda estén en línea */
+    flex-wrap: wrap; 
+}
+
+.citas-header h2 {
+    font-size: 1.8em;
+    color: var(--text-color);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* ======================================= */
+/* 3. ACCIONES: BOTÓN AGREGAR Y BÚSQUEDA */
+/* ======================================= */
+/* Agrupamos la búsqueda y el botón para un layout más limpio */
+.citas-actions {
+    display: flex;
+    gap: 15px; /* Espacio entre el botón y la búsqueda */
+    align-items: center;
+    order: 2; /* Para control de posición */
+}
+
+.citas-actions .btn-agregar {
+    /* Cambiamos el verde suave por el azul primario */
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    transition: background-color 0.2s ease, transform 0.1s;
+    box-shadow: 0 3px 5px rgba(0, 123, 255, 0.2);
+    /* El botón "+ Agregar Consulta" se moverá si el HTML lo agrupa con la búsqueda */
+}
+
+.citas-actions .btn-agregar:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.citas-search {
+    position: relative;
+    width: 300px; /* Tamaño adecuado para una barra de búsqueda */
+    order: 3; /* Para control de posición */
+}
+
+.citas-search input {
+    width: 100%;
+    padding: 10px 40px 10px 15px; /* Más padding para el ícono de la lupa */
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border-color 0.2s;
+}
+
+.citas-search input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* Asegura que el ícono de búsqueda no se rompa o confunda con el input */
+.citas-search .bi-search {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.1em;
+}
+
+/* ======================================= */
+/* 4. ESTILO DE LA TABLA (ELIMINANDO BORDES INTERNOS EXCESIVOS) */
+/* ======================================= */
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table-citas {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Encabezados de la Tabla */
+.table-citas th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+    border: none; /* Elimina bordes en th */
+}
+
+/* Filas y Datos de la Tabla (Estilo Rayado - Zebra) */
+.table-citas td {
+    padding: 12px 15px;
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color); /* Solo borde inferior */
+    color: #555;
+    background-color: #fff;
+}
+
+.table-citas tr:nth-child(even) td {
+    background-color: var(--light-gray); /* Fondo gris claro para filas pares */
+}
+
+.table-citas tr:hover td {
+    background-color: #e6f7ff; /* Fondo muy suave al pasar el ratón */
+}
+
+/* Énfasis en Diagnóstico/Observaciones */
+.table-citas td:nth-child(5), /* Diagnóstico */
+.table-citas td:nth-child(6) { /* Observaciones */
+    font-style: italic;
+    color: #6c757d; /* Texto ligeramente menos prominente */
+}
+
+/* ======================================= */
+/* 5. BOTONES DE ACCIÓN EN FILAS (SEPARADOS Y ESTILIZADOS) */
+/* ======================================= */
+
+.table-citas .action-buttons {
+    display: flex;
+    gap: 8px; /* Espacio de separación entre los botones */
+    justify-content: center; /* Centrar en la celda */
+    padding: 8px; /* Asegura que no haya padding extra que interfiera */
+}
+
+/* Estilo Base para los Botones */
+.table-citas .action-buttons button {
+    background: none; /* Reiniciamos */
+    border: none; /* Reiniciamos */
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: white;
+    transition: background-color 0.2s, transform 0.1s;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Botón Editar (Amarillo) */
+.table-citas .action-buttons .btn-edit {
+    background-color: var(--edit-color);
+    color: var(--text-color); /* Texto oscuro para contraste en amarillo */
+}
+
+.table-citas .action-buttons .btn-edit:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+/* Botón Eliminar (Rojo) */
+.table-citas .action-buttons .btn-delete {
+    background-color: var(--delete-color);
+    color: white;
+}
+
+.table-citas .action-buttons .btn-delete:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Estilos para celdas editables */
+.editable-cell {
+ padding: 0; 
+}
+
+.editable-cell input {
+ width: 100%;
+ height: 100%;
+ border: none;
+ padding: 10px;
+ box-sizing: border-box; 
+ background-color: #f0f2f5;
+    transition: background-color 0.2s;
+}
+
+.editable-cell input:focus {
+    background-color: #fff;
+    border: 1px solid var(--primary-color);
+}
+
+/* ======================================= */
+/* 6. RESPONSIVE (Móvil) */
+/* ======================================= */
+@media (max-width: 768px) {
+    .citas-container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+    
+    .citas-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .citas-actions {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%; /* Ocupa todo el ancho en móvil */
+    }
+
+    .citas-actions .btn-agregar {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .citas-search {
+        width: 100%;
+    }
+    
+    /* En móvil, los botones de acción se apilan verticalmente si es necesario */
+    .table-citas .action-buttons {
+        flex-direction: column;
+        gap: 4px;
+        align-items: center;
+    }
+    .table-citas .action-buttons button {
+        width: 80px; /* Ancho fijo para botones en móvil */
+        margin: 0;
+    }
+}

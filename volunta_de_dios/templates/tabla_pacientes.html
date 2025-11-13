@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+ {% block contenido %}
+
+ <link rel="stylesheet" href="{% static 'css/tabla_de_pacientes.css' %}">
+  <div class="citas-container">
+    <div class="citas-header">
+        <h2>Tabla de Pacientes</h2>
+        <div class="citas-actions">
+            <a href="{% url 'agregar_pacientes' %}" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Agregar Paciente
+            </a>
+        <div class="input-group search-bar">
+                <input type="text" class="form-control" placeholder="Buscar..." id="pacienteSearch">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-citas" id="pacientesTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Fecha Nacimiento</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                    <th>Género</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for paciente in pacientes %}
+                <tr>
+                    <td>{{ paciente.nombre }}</td>
+                    <td>{{ paciente.apellido }}</td>
+                    <td>{{ paciente.edad }}</td>
+                    <td>{{ paciente.fecha_nacimiento|date:"Y-m-d" }}</td>
+                    <td>{{ paciente.correo }}</td>
+                    <td>{{ paciente.telefono }}</td>
+                    <td>{{ paciente.genero }}</td>
+                    <td>{{ paciente.direccion }}</td>
+                   <td>
+                          <div class="btn-group-acciones" role="group">
+                           {# Botón de Editar #}
+                      <a href="{% url 'editar_paciente' paciente.pk %}" class="btn btn-warning btn-sm">
+                    <i class="bi bi-pencil"></i> Editar
+                     </a>
+                 {# Botón de Eliminar (redirige a la página de confirmación) #}
+            <a href="{% url 'eliminar_paciente' paciente.pk %}" class="btn btn-danger btn-sm">
+                 <i class="bi bi-trash"></i> Eliminar
+                            </a>
+                       </div>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9">No hay pacientes registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/paguina_principal.js' %}"></script>
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('pacienteSearch');
+            const metricasTableBody = document.querySelector('#pacientesTable tbody');
+            const rows = metricasTableBody.querySelectorAll('tr');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const searchText = event.target.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

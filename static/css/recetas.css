@@ -1,0 +1,183 @@
+:root {
+    --primary-color: #007bff; /* Azul profesional (para guardar) */
+    --secondary-color: #6c757d; /* Gris neutro (para cancelar) */
+    --delete-color: #dc3545; /* Rojo para eliminar */
+    --text-color: #343a40;
+    --input-bg-color: #f8f9fa; /* Fondo claro para inputs */
+    --border-color: #ced4da;
+}
+
+/* ======================================= */
+/* 1. CONTENEDOR Y CABECERA */
+/* ======================================= */
+.form-receta-container {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); 
+    width: 90%;
+    max-width: 750px; 
+    margin: 30px auto;
+    display: flex; /* Asegura un layout vertical limpio */
+    flex-direction: column;
+    gap: 25px; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-receta-container h2 {
+    text-align: center;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 2em;
+    margin-bottom: 5px; /* Ajuste para el gap del contenedor */
+}
+
+/* ======================================= */
+/* 2. GRUPOS DE CAMPOS (LAYOUT FLEX DE 2 COLUMNAS) */
+/* ======================================= */
+.form-group-flex {
+    display: flex;
+    gap: 20px; 
+    margin-bottom: 5px; /* Ajuste para el gap del contenedor */
+    flex-wrap: wrap;
+    justify-content: space-between; 
+}
+
+.form-field-receta {
+    flex: 1 1 45%; 
+    min-width: 250px;
+}
+
+.form-field-receta.full-width {
+    flex: 1 1 100%;
+    min-width: 100%;
+}
+
+.form-field-receta label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.95em;
+}
+
+/* ======================================= */
+/* 3. ESTILO DE INPUTS Y SELECT */
+/* ======================================= */
+.form-field-receta input[type="text"],
+.form-field-receta select, 
+.form-field-receta textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+    background-color: var(--input-bg-color); 
+    color: var(--text-color);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-field-receta input:focus,
+.form-field-receta select:focus,
+.form-field-receta textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    background-color: #fff;
+    outline: none;
+}
+
+/* === MODIFICACIÓN SOLICITADA === */
+.form-receta-container {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); 
+    width: 90%;
+    /* MODIFICACIÓN CLAVE PARA AUMENTAR ANCHO HORIZONTAL */
+    max-width: 900px; /* Incrementado de 750px a 900px */
+    margin: 30px auto;
+}
+
+/* El estilo del textarea se mantiene así: */
+.form-field-receta textarea {
+    min-height: 200px; 
+    max-width: 500px;
+    resize: both;
+}
+
+/* ======================================= */
+/* 4. BOTONES DE ACCIÓN */
+/* ======================================= */
+.form-actions-receta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px; /* Incrementado a 20px para mejor separación */
+    margin-top: 35px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Estilo Base para los botones */
+.form-actions-receta button,
+.form-actions-receta a {
+    padding: 10px 22px; 
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón Guardar (Azul) */
+.form-actions-receta .btn-save {
+    background-color: var(--primary-color);
+    color: white;
+}
+.form-actions-receta .btn-save:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Botón Cancelar (Gris) */
+.form-actions-receta .btn-cancel {
+    background-color: var(--secondary-color);
+    color: white;
+}
+.form-actions-receta .btn-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-1px);
+}
+
+/* ======================================= */
+/* 5. RESPONSIVE (Móvil) */
+/* ======================================= */
+@media (max-width: 768px) {
+    .form-receta-container {
+        padding: 20px;
+    }
+    .form-group-flex {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .form-field-receta {
+        min-width: 100%;
+    }
+    .form-actions-receta {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .form-actions-receta button,
+    .form-actions-receta a {
+        width: 100%;
+        justify-content: center;
+    }
+}

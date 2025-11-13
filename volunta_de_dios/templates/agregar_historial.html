@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="registration-container">
+    {% if historial %}
+        <h2>Editar Historial de {{ historial.paciente.nombre }} {{ historial.paciente.apellido }}</h2>
+    {% else %}
+        <h2>Agregar Nuevo Historial</h2>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'tabla_historial' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+     <script src="{% static 'js/paguina_principal.js' %}"></script>
+      <script>
+    $(document).ready(function() {
+        // Inicializa Select2 en el campo de paciente que tiene la clase 'select2-paciente'
+        $('#id_paciente').select2({
+            placeholder: "Escriba para buscar un paciente...",
+            allowClear: true,
+            width: '100%' // Ajusta el ancho
+        });
+        
+        // Opcional: si también quieres autocompletado en el médico
+        $('#id_medico').select2({
+            placeholder: "Escriba para buscar un médico...",
+            allowClear: true,
+            width: '100%' 
+        });
+    });
+</script>
+{% endblock extra_js %}

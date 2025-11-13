@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %} {# Usa 'contenido' según tu base.html #}
+<div class="registration-container">
+    <h2 class="text-center mb-4">Agregar Nueva Cita</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar Cita</button>
+            <a href="{% url 'tabla_citas' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+   <script>
+    $(document).ready(function() {
+        // Inicializa Select2 en el campo de paciente que tiene la clase 'select2-paciente'
+        $('#id_paciente').select2({
+            placeholder: "Escriba para buscar un paciente...",
+            allowClear: true,
+            width: '100%' // Ajusta el ancho
+        });
+        
+        // Opcional: si también quieres autocompletado en el médico
+        $('#id_medico').select2({
+            placeholder: "Escriba para buscar un médico...",
+            allowClear: true,
+            width: '100%' 
+        });
+    });
+</script>
+{% endblock extra_js %}

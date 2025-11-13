@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+ <link rel="stylesheet" href="{% static 'css/eliminar_consulta.css' %}">
+<div class="container mt-4">
+    <h2>Confirmar Eliminación de Consulta</h2>
+    <p>¿Estás seguro de que deseas eliminar la consulta de {{ consulta.paciente.nombre }} {{ consulta.paciente.apellido }} con fecha {{ consulta.fecha_consulta }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+        {# ¡CORREGIDO! Cambiado 'tabla_consulta' a 'tabla_consultas' (plural) #}
+        <a href="{% url 'tabla_consulta' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+<script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock %}

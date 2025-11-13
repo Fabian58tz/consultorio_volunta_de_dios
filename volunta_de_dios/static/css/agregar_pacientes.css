@@ -1,0 +1,66 @@
+ .registration-container {
+  width: 90%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+ }
+
+ .form-group {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+ }
+
+ .form-group label {
+  width: 150px;
+  text-align: left;
+  margin-right: 10px;
+ }
+
+ .form-group input,
+ .form-group select,
+ .form-group textarea {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+ }
+
+ .form-actions {
+  margin-top: 20px;
+  text-align: right;
+ }
+
+ .save-button,
+ .cancel-button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+ }
+
+ .save-button {
+  background-color: #4CAF50;
+  color: white;
+ }
+
+ .cancel-button {
+  background-color: #f44336;
+  color: white;
+ }
+
+ /* Basic responsiveness */
+ @media (max-width: 600px) {
+  .form-group {
+   flex-direction: column;
+   align-items: flex-start;
+  }
+
+  .form-group label {
+   width: 100%;
+   margin-bottom: 5px;
+  }
+ }

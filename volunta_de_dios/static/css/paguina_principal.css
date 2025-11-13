@@ -1,0 +1,275 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    overflow-x: hidden;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.page-wrapper {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    box-shadow: none;
+    background-color: #ffffff;
+}
+
+#sidebar {
+    width: 250px; /* Ancho por defecto del sidebar */
+    background-color: #ECA9C6; /* Fondo rosa para el sidebar */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease-in-out, padding 0.3s ease-in-out;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    min-height: 100vh;
+    z-index: 1000;
+    flex-shrink: 0; /* Evita que el sidebar se encoja cuando no debe */
+}
+
+#sidebar.collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#sidebar .sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+#sidebar .sidebar-header img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#sidebar .menu-title {
+    color: #707070;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    padding-left: 10px; /* Ajuste para el padding */
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+}
+#sidebar.collapsed .menu-title {
+    opacity: 0;
+}
+
+#sidebar .nav-link {
+    color: #495057;
+    padding: 12px 15px; /* Aumenta el padding para dar más espacio */
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-weight: 500;
+}
+#sidebar .nav-link:hover,
+#sidebar .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #A48640;
+}
+#sidebar .nav-link i {
+    margin-right: 10px;
+    font-size: 1.2em;
+    flex-shrink: 0; /* Asegura que el icono no se encoja */
+    color: #A48640; /* Color del icono */
+}
+#sidebar .nav-link span {
+    flex-grow: 1; /* Permite que el span ocupe el espacio restante */
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+    font-size: 0.95em; /* Ligeramente más pequeño para que quepa */
+}
+#sidebar.collapsed .nav-link span {
+    opacity: 0;
+}
+#sidebar .nav-link.active {
+    font-weight: bold;
+}
+#sidebar .nav-item.mt-auto {
+    margin-top: auto;
+}
+
+/* Estilos para el submenu */
+.submenu {
+    list-style: none;
+    padding-left: 30px; /* Indentación para el submenu */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: rgba(255, 255, 255, 0.2); /* Fondo más claro para el submenu */
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.submenu.show {
+    max-height: 500px; /* Suficientemente grande para contener los elementos */
+    transition: max-height 0.5s ease-in;
+}
+
+.submenu .nav-link {
+    padding: 8px 15px; /* Ajuste el padding para los elementos del submenu */
+    font-size: 0.9em;
+    color: #595959;
+}
+.submenu .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #A48640;
+}
+
+#main-content {
+    flex-grow: 1;
+    padding: 20px;
+    padding-top: 80px; /* Espacio para el encabezado fijo */
+    transition: margin-left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente el contenido dentro de main-content */
+    position: relative; /* Necesario para que el header sticky funcione dentro de el */
+}
+
+#header {
+    background-color: #FFFFFF;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute; /* Cambiado a absolute para que se posicione dentro de main-content */
+    top: 0;
+    left: 0;
+    width: 100%; /* El header debe ocupar todo el ancho del main-content */
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* ****************************************************************** */
+/* CAMBIO CLAVE AQUÍ: EL BOTÓN SIEMPRE VISIBLE */
+#header .navbar-toggler {
+    border: none;
+    font-size: 1.5em;
+    color: #495057;
+    background-color: transparent;
+    cursor: pointer;
+    display: block; /* ¡Cambiado de 'none' a 'block' para que siempre sea visible! */
+}
+/* ****************************************************************** */
+
+#header .user-profile {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #495057;
+}
+#header .user-profile i {
+    font-size: 1.8em;
+    margin-right: 8px;
+    color: #A48640;
+}
+
+.footer-quote {
+    text-align: center;
+    margin-top: 20px;
+    color: #6c757d;
+    font-size: 0.85em;
+    padding-top: 20px;
+    opacity: 1;
+    transition: opacity 0.1s ease-in-out;
+}
+#sidebar.collapsed .footer-quote {
+    opacity: 0;
+}
+
+.content-placeholder {
+    min-height: 500px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    color: #C0A07B;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+/* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    body {
+        justify-content: flex-start;
+    }
+    .page-wrapper {
+        flex-direction: column;
+        max-width: 100%;
+        box-shadow: none;
+    }
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        box-shadow: none;
+        padding-bottom: 0;
+        order: 2;
+        overflow: hidden; /* Asegura que no haya desbordamiento */
+    }
+    #sidebar.collapsed {
+        height: 0;
+        padding: 0;
+    }
+    #main-content {
+        margin-left: 0;
+        padding-top: 20px;
+        order: 1;
+        align-items: center;
+    }
+    #header {
+        position: static;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        border-bottom: 1px solid #e0e0e0;
+        margin-bottom: 20px;
+    }
+    /* Esta regla ahora es redundante para el toggler, ya que siempre es 'block' */
+    /* #header .navbar-toggler { display: block; } */ 
+    #header .d-md-block {
+        display: none !important;
+    }
+    
+    #sidebar.collapsed .sidebar-header,
+    #sidebar.collapsed .menu-title,
+    #sidebar.collapsed .nav-item:not(.has-submenu),
+    #sidebar.collapsed .footer-quote {
+        height: 0; 
+        overflow: hidden;
+        opacity: 0;
+        margin: 0; 
+        padding: 0; 
+        transition: height 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    }
+    #sidebar.collapsed .nav-link i {
+        margin-right: 0; 
+    }
+    .content-placeholder {
+        width: 95%;
+        max-width: none;
+        margin-top: 0;
+    }
+}

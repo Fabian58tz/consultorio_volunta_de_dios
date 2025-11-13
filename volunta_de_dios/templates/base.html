@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal - Dra. Pasman Paladines</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/paguina_principal.css' %}">
+
+ <link rel="stylesheet" href="{% static 'css/tabla_de_pacientes.css' %}">
+    <link rel="stylesheet" href="{% static 'css/agregar_historial.css' %}">
+   <link rel="stylesheet" href="{% static 'css/agregar_pacientes.css' %}">
+     
+      <link rel="stylesheet" href="{% static 'css/consulta.css' %}">
+      <link rel="stylesheet" href="{% static 'css/recetas_de_pacientes.css' %}">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <img src="{% static 'imagenes/logo1.jpg' %}" alt="Logo">
+            </div>
+            <div class="menu-title">MENU DE OPCIONES</div>
+            <ul class="nav flex-column">
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuPacientes" aria-expanded="false" aria-controls="submenuPacientes">
+                        <i class="bi bi-person-fill"></i> <span>Pacientes</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuPacientes">
+                        <li><a class="nav-link" href="{% url 'agregar_pacientes' %}">Agregar Paciente</a></li>
+                        <li><a class="nav-link" href="{% url 'tabla_pacientes' %}">Buscar Paciente</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuCitas" aria-expanded="false" aria-controls="submenuCitas">
+                        <i class="bi bi-calendar-check-fill"></i> <span>Módulo Citas</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuCitas">
+                        <li><a class="nav-link" href="{% url 'tabla_citas' %}">Tabla de Citas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuHistorial" aria-expanded="false" aria-controls="submenuHistorial">
+                        <i class="bi bi-clock-history"></i> <span>Historial Médico</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuHistorial">
+                        <li><a class="nav-link" href="{% url 'agregar_historial' %}">Agregar Historial</a></li>
+                        <li><a class="nav-link" href="{% url 'tabla_historial' %}">Buscar Historial</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuRecetas" aria-expanded="false" aria-controls="submenuRecetas">
+                        <i class="bi bi-file-earmark-text-fill"></i> <span>Módulo Recetas</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuRecetas">
+                        <li><a class="nav-link" href="{% url 'tabla_de_recetas_de_pacientes' %}">Buscar Recetas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuMetrica" aria-expanded="false" aria-controls="submenuMetrica">
+                        <i class="bi bi-graph-up"></i> <span>Módulo Métrica del Paciente</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuMetrica">
+                        <li><a class="nav-link" href="{% url 'metrica_paciente' %}">Crear Métrica</a></li>
+                        <li><a class="nav-link" href="{% url 'tabla_metrica' %}">Buscar Métrica</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuMedicos" aria-expanded="false" aria-controls="submenuMedicos">
+                        <i class="bi bi-person-badge-fill"></i> <span>Médicos</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuMedicos">
+                        <li><a class="nav-link" href="{% url 'tabla_medicos' %}">Buscar Médicos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item has-submenu">
+                    <a class="nav-link" href="#" data-bs-toggle="collapse" data-bs-target="#submenuConsultas" aria-expanded="false" aria-controls="submenuConsultas">
+                        <i class="bi bi-search"></i> <span>Consultas</span>
+                    </a>
+                    <ul class="submenu collapse" id="submenuConsultas">
+                        <li><a class="nav-link" href="{% url 'tabla_consulta' %}">Buscar Consultas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item mt-auto">
+                    {# CORREGIDO: El enlace Salir debe apuntar a la URL de logout #}
+                    <a class="nav-link" href="{% url 'logout_page' %}"> 
+                        <i class="bi bi-box-arrow-right"></i> <span>Salir</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="main-content">
+            <header id="header">
+                <button id="sidebarToggle" class="navbar-toggler" type="button">
+                    <span class="bi bi-list"></span>
+                </button>
+
+                <div class="user-profile">
+                    <i class="bi bi-person-circle"></i>
+                    <span>usuario</span>
+                </div>
+                
+            </header>
+            {% block contenido %}
+         {% endblock %}
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{% static 'js/paguina_principal.js' %}"></script>
+    <script src="{% static 'js/agregar_pacientes.js' %}"></script>
+   <script src="{% static 'js/agregar_historial.js' %}"></script>
+   <script src="{% static 'js/metrica_pacientes.js' %}"></script>
+   <script src="{% static 'js/consulta_pacientes.js' %}"></script>
+   <script src="{% static 'js/recetas_de_pacientes.js' %}"></script>
+   
+
+           {% block extra_js %}
+            {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/recetas.css' %}">
+
+<div class="form-receta-container">
+    {# Título dinámico #}
+    {% if receta %}
+        <h2>Editar Receta para {{ receta.paciente.nombre }} {{ receta.paciente.apellido }}</h2>
+    {% else %}
+        <h2>Registro de Recetas de pacientes</h2>
+    {% endif %}
+
+    <div id="messageArea" class="message-area">
+        {# Lógica para mensajes de éxito o error #}
+    </div>
+    
+    <form method="post"> 
+        {% csrf_token %}
+
+        <div class="form-group-flex">
+            {% for field in form %}
+                {% if field.name == 'paciente' or field.name == 'nombre_medicamento' %}
+                    <div class="form-field-receta">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger">{% for error in field.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group-flex">
+            {% for field in form %}
+                {% if field.name == 'dosis' or field.name == 'frecuencia' %}
+                    <div class="form-field-receta">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger">{% for error in field.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="form-group-flex">
+            {% for field in form %}
+                {% if field.name == 'indicaciones' %}
+                    <div class="form-field-receta full-width">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger">{% for error in field.errors %}{{ error }}{% endfor %}</div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {# Manejo de Errores Globales (Non-Field Errors) #}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-actions-receta">
+            <button type="submit" class="btn-save">Guardar</button> 
+            <a href="{% url 'tabla_de_recetas_de_pacientes' %}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+    <script src="{% static 'js/paguina_principal.js' %}"></script>
+       <script>
+    $(document).ready(function() {
+        // Inicializa Select2 en el campo de paciente que tiene la clase 'select2-paciente'
+        $('#id_paciente').select2({
+            placeholder: "Escriba para buscar un paciente...",
+            allowClear: true,
+            width: '100%' // Ajusta el ancho
+        });
+        
+        // Opcional: si también quieres autocompletado en el médico
+        $('#id_medico').select2({
+            placeholder: "Escriba para buscar un médico...",
+            allowClear: true,
+            width: '100%' 
+        });
+    });
+</script>
+{% endblock extra_js %}

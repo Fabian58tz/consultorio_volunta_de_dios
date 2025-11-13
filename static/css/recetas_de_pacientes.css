@@ -1,0 +1,145 @@
+* Estilos específicos para el formulario de Registro de Recetas */
+
+.form-receta-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px; /* Ajustado para que se vea similar a la imagen */
+    margin: 20px auto; /* Centrar y dar espacio */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas para los campos de texto */
+    gap: 20px; /* Espacio entre los elementos del grid */
+    align-items: start; /* Alinea los elementos al inicio de su celda */
+}
+
+.form-receta-container h2 {
+    grid-column: 1 / -1; /* Ocupa todas las columnas */
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#messageArea {
+    grid-column: 1 / -1; /* Para que el área de mensajes también ocupe todo el ancho */
+    margin-bottom: 15px;
+}
+
+.form-receta-container form {
+    grid-column: 1 / -1; /* El formulario ocupa ambas columnas */
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Define el layout interno del formulario */
+    gap: 20px;
+}
+
+.form-receta-container .form-group-receta {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0; /* Ya tenemos gap en el grid */
+}
+
+.form-receta-container .form-group-receta.full-width {
+    grid-column: 1 / -1; /* Para que la "Indicaciones" ocupe todo el ancho */
+}
+
+.form-receta-container .form-group-receta label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-receta-container .form-group-receta input[type="text"],
+.form-receta-container .form-group-receta textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Incluir padding en el ancho */
+    min-height: 40px; /* Altura mínima para inputs */
+}
+
+.form-receta-container .form-group-receta textarea {
+    min-height: 150px; /* Altura para el campo de Indicaciones */
+    resize: vertical;
+    text-align: center; /* Centrar el placeholder "Múltiples consultas" */
+    padding-top: 60px; /* Ajustar padding para centrar visualmente el placeholder */
+}
+
+.form-receta-container .form-actions-receta {
+    grid-column: 1 / -1; /* Ocupa todas las columnas */
+    display: flex;
+    justify-content: flex-end; /* Alinea los botones a la derecha */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-receta-container .form-actions-receta button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-receta-container .form-actions-receta .save-button {
+    background-color: #28a745; /* Green for Save */
+    color: white;
+}
+
+.form-receta-container .form-actions-receta .save-button:hover {
+    background-color: #218838;
+}
+
+.form-receta-container .form-actions-receta .delete-button {
+    background-color: #dc3545; /* Red for Delete */
+    color: white;
+}
+
+.form-receta-container .form-actions-receta .delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .form-receta-container form {
+        grid-template-columns: 1fr; /* Una columna en pantallas pequeñas */
+    }
+
+    .form-receta-container .form-group-receta.full-width {
+        grid-column: 1; /* Asegurar que ocupe una columna */
+    }
+
+    .form-receta-container .form-actions-receta {
+        justify-content: center; /* Centrar botones en pantallas pequeñas */
+    }
+}
+
+/* Estilo para el área de mensajes de Bootstrap */
+.message-area {
+    margin-bottom: 1rem; /* Espacio debajo del mensaje */
+    padding: .75rem 1.25rem; /* Padding de Bootstrap alert */
+    border: 1px solid transparent; /* Borde de Bootstrap alert */
+    border-radius: .25rem; /* Bordes redondeados de Bootstrap alert */
+    display: none; /* Oculto por defecto, se muestra con JS */
+    font-size: 0.9em;
+    text-align: center; /* Centrar el texto del mensaje */
+}
+
+.message-area.alert-success {
+    color: #0f5132;
+    background-color: #d1e7dd;
+    border-color: #badbcc;
+}
+
+.message-area.alert-danger {
+    color: #842029;
+    background-color: #f8d7da;
+    border-color: #f5c2c7;
+}

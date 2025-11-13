@@ -1,0 +1,84 @@
+/* ======================================= */
+/* ESTILOS PARA CONFIRMAR_ELIMINAR_CONSULTA.HTML */
+/* ======================================= */
+
+/* 1. Contenedor Principal Centrado */
+.container-et-4 {
+    /* Asegura que el contenedor ocupe el espacio */
+    padding-top: 50px; 
+    text-align: center; /* Centra el contenido de texto y elementos en línea */
+    max-width: 600px; /* Limita el ancho para mejor lectura */
+    margin: 50px auto; /* Centra el bloque horizontalmente */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 2. Encabezado y Texto de Pregunta */
+.container-et-4 h2 {
+    font-size: 1.8em;
+    color: var(--text-color); /* Usamos el color de texto definido */
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.container-et-4 p {
+    font-size: 1.1em;
+    color: #6c757d;
+    margin-bottom: 30px;
+    /* Estilo para destacar la información a eliminar */
+    padding: 15px;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    background-color: var(--light-gray);
+    line-height: 1.5;
+}
+
+/* 3. Estilos de Botones de Acción */
+.form-method-post {
+    display: flex;
+    justify-content: center; /* Centra los botones dentro del formulario */
+    gap: 20px; /* Espacio entre los botones */
+    margin-top: 20px;
+}
+
+/* Botón de Eliminación (Rojo, Destacado) */
+.form-method-post button[type="submit"] {
+    background-color: var(--delete-color); /* Rojo de la variable */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s;
+    box-shadow: 0 4px 6px rgba(220, 53, 69, 0.3); /* Sombra para destacarlo */
+}
+
+.form-method-post button[type="submit"]:hover {
+    background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+    transform: translateY(-2px);
+}
+
+/* Botón de Cancelar (Secundario/Neutro) */
+.form-method-post .btn-secondary {
+    background-color: #6c757d; /* Gris para neutralidad */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    text-decoration: none; /* Quita el subrayado del enlace */
+    display: inline-flex; /* Asegura que el padding funcione bien en el <a> */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.1s;
+}
+
+.form-method-post .btn-secondary:hover {
+    background-color: #5a6268; /* Gris más oscuro */
+    transform: translateY(-1px);
+}

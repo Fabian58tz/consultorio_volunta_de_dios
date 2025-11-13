@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %} {# Usa 'contenido' según tu base.html #}
+<link rel="stylesheet" href="{% static 'css/tabla_citas.css' %}">
+<div class="citas-container">
+    <div class="citas-header">
+        <h2>Tabla de Citas</h2>
+        <div class="citas-actions">
+            <a href="{% url 'agregar_cita' %}" class="btn-agregar">
+                <i class="bi bi-plus-lg"></i> Agregar Cita {# Cambiado el texto #}
+            </a>
+            {# Puedes añadir un buscador si lo necesitas aquí #}
+            <div class="input-group search-bar">
+                <input type="text" class="form-control" placeholder="Buscar..." id="citasSearch">
+                <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-citas"id="citasTable"> {# Cambié id a citasTable #}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Paciente</th>
+                    <th>Nombre del Médico</th> {# Asegúrate de tener este campo en tu modelo Cita #}
+                    <th>Motivo de la cita</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Estado</th> {# Nuevo campo de estado #}
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cita in citas %} {# Iterar sobre la lista de citas #}
+                <tr>
+                    <td>{{ cita.pk }}</td>
+                    <td>{{ cita.paciente.nombre }} {{ cita.paciente.apellido }}</td>
+                    <td>{{ cita.medico.nombre }} {{ cita.medico.apellido }}</td> {# Asumiendo que cita.medico existe #}
+                    <td>{{ cita.motivo }}</td>
+                    <td>{{ cita.fecha|date:"Y-m-d" }}</td> {# Formato de fecha #}
+                    <td>{{ cita.hora|time:"H:i" }}</td> {# Formato de hora #}
+                    <td>{{ cita.estado }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'editar_cita' cita.pk %}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a href="{% url 'eliminar_cita' cita.pk %}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">No hay citas registradas.</td> {# Ajusta el colspan si añades/quitas columnas #}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+    <script src="{% static 'js/tabla_citas.js' %}"></script>
+    {# Puedes agregar aquí un script para la funcionalidad de búsqueda si lo implementas #}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('citasSearch');
+            const citasTableBody = document.querySelector('#citasTable tbody');
+            const rows = citasTableBody.querySelectorAll('tr');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const searchText = event.target.value.toLowerCase();
+
+                rows.forEach(row => {
+                    const rowText = row.textContent.toLowerCase();
+                    if (rowText.includes(searchText)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock extra_js %}

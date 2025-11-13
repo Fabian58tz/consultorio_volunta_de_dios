@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %} {#  ¡CAMBIADO A 'contenido'! #}
+<link rel="stylesheet" href="{% static 'css/agregar_pacientes.css' %}">
+<div class="registration-container">
+    <h2 class="text-center mb-4">Editar Paciente: {{ paciente.nombre }} {{ paciente.apellido }}</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{% url 'tabla_pacientes' %}" class="btn btn-secondary">Cancelar</a> {# Vuelve a la tabla sin guardar #}
+        </div>
+    </form>
+</div>
+{% endblock contenido %} {#  ¡Asegúrate de cerrar con 'contenido'! #}
+
+{% block extra_js %}
+    <script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock extra_js %}

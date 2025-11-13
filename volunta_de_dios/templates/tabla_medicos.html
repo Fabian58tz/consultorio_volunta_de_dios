@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<link rel="stylesheet" href="{% static 'css/tabla_medicos.css' %}">
+<div class="citas-container"> {# Puedes renombrar esta clase si lo prefieres a 'medicos-container' #}
+    <div class="citas-header"> {# Puedes renombrar esta clase #}
+        <h2>Tabla de Médicos</h2>
+        <div class="citas-actions"> {# Puedes renombrar esta clase #}
+            <a href="{% url 'agregar_medico' %}" class="btn-agregar">
+                <i class="bi bi-plus-lg"></i> Agregar Médico
+            </a>
+            <div class="citas-search"> {# Puedes mantener o quitar la funcionalidad de búsqueda si no la implementas con JS/Django #}
+                <input type="text" placeholder="Buscar...">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table-citas" id="medicosTable"> {# Cambiado el ID a medicosTable #}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Médico</th>
+                    <th>Apellido del Médico</th>
+                    <th>Especialidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medico in medicos %}
+                <tr data-id="{{ medico.pk }}">
+                    <td>{{ medico.pk }}</td>
+                    <td>{{ medico.nombre }}</td>
+                    <td>{{ medico.apellido }}</td>
+                    <td>{{ medico.especialidad }}</td>
+                    <td class="action-buttons">
+                        <a href="{% url 'editar_medico' medico.pk %}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-pencil"></i> Editar
+                        <a href="{% url 'eliminar_medico' medico.pk %}" class="btn btn-danger btn-sm">
+                            <i class="bi bi-trash"></i> Eliminar
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No hay médicos registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="{% static 'js/paguina_principal.js' %}"></script>
+{% endblock %}

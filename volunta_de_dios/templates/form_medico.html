@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contenido %}
+<div class="form-medico-container"> {# Puedes usar una clase específica para el formulario de medico #}
+    {% if medico %}
+        <h2>Editar Médico: {{ medico.nombre }} {{ medico.apellido }}</h2>
+    {% else %}
+        <h2>Registrar Nuevo Médico</h2>
+    {% endif %}
+
+    <div id="messageArea" class="message-area">
+        {# Aquí podrías añadir lógica para mostrar mensajes de éxito o error #}
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="form-group-medico"> {# Otra clase para los grupos de campos de medico #}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <div class="alert alert-danger">
+                        {% for error in field.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="form-actions-medico"> {# Clases específicas para las acciones #}
+            <button type="submit" class="btn-save">
+                <i class="bi bi-save-fill"></i> Guardar
+            </button>
+            <a href="{% url 'tabla_medicos' %}" class="btn-cancel">
+                <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock contenido %}
+
+{% block extra_js %}
+    {# Cualquier JS específico para este formulario (ej. validaciones personalizadas) #}
+{% endblock extra_js %}

@@ -1,0 +1,161 @@
+/* General container for the history section */
+.historial-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding: 20px;
+    max-width: 900px;
+    margin: 0 auto; /* Center the container */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Title of the history section */
+.historial-container h2 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 30px;
+    font-size: 2em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Styles for a timeline layout */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    list-style: none; /* Remove default list bullets */
+}
+
+/* Line for the timeline */
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background-color: #ddd;
+    transform: translateX(-50%);
+}
+
+/* Individual timeline item */
+.timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+    padding: 10px 0;
+}
+
+/* Alternating items for a more visual timeline */
+.timeline-item:nth-child(odd) {
+    left: -48%; /* Adjust for spacing */
+}
+
+.timeline-item:nth-child(even) {
+    left: 48%; /* Adjust for spacing */
+}
+
+/* Content of each timeline item */
+.timeline-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: relative;
+    width: 45%; /* Half width for content */
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+    float: right;
+}
+
+.timeline-item:nth-child(even) .timeline-content {
+    float: left;
+}
+
+/* Pointer for the timeline item content */
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.timeline-item:nth-child(odd) .timeline-content::before {
+    left: -20px;
+    border-width: 10px 20px 10px 0;
+    border-color: transparent #fff transparent transparent;
+}
+
+.timeline-item:nth-child(even) .timeline-content::before {
+    right: -20px;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent #fff;
+}
+
+
+/* Circle/dot on the timeline line */
+.timeline-point {
+    width: 20px;
+    height: 20px;
+    background-color: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid #fff;
+    z-index: 1; /* Ensure it's above the line */
+}
+
+/* Date/Year in the timeline */
+.timeline-date {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Description of the event */
+.timeline-description {
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+/* Clearfix for floating elements in timeline */
+.timeline::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px; /* Move line to the left */
+    }
+
+    .timeline-item {
+        left: 0 !important; /* Remove left/right positioning */
+        margin-bottom: 30px;
+    }
+
+    .timeline-content {
+        width: calc(100% - 70px); /* Adjust width */
+        margin-left: 70px; /* Push content to the right of the line */
+    }
+
+    .timeline-content::before {
+        left: -20px; /* Adjust pointer for left-aligned content */
+        border-width: 10px 20px 10px 0;
+        border-color: transparent #fff transparent transparent;
+    }
+
+    .timeline-point {
+        left: 20px; /* Align point with the line */
+        transform: translateX(-50%); /* Center horizontally on the line */
+    }
+}
