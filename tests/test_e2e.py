@@ -1,3 +1,4 @@
+import pytest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -15,6 +16,7 @@ import time # Importamos time para un pequeño sleep de seguridad
 # SUBMIT_XPATH = '//button[@type="submit"]'
 
 # --- PRUEBA END-TO-END (E2E) AVANZADA Y ROBUSTA ---
+@pytest.mark.e2e
 class ConsultorioFullWorkflowTests(StaticLiveServerTestCase):
     
     @classmethod
