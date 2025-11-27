@@ -41,6 +41,6 @@ path('tabla_medicos/', views.tabla_medicos, name='tabla_medicos'),
     path('eliminar_medico/<int:pk>/', views.eliminar_medico, name='eliminar_medico'),
     # URL para cerrar sesión
     path('logout/', views.logout_view, name='logout_page'),
-
+path('registro/', views.registro_usuario_view, name='registro_usuario'),
 ]
 

@@ -1,0 +1,66 @@
+name: CI (PR) - Unit, Integrations, Performance and Stress
+
+on:
+  pull_request:
+    # Ejecuta el workflow cuando se abre un PR a estas ramas
+    # Asegúrate de que tu rama principal de desarrollo (si es diferente a 'master') esté aquí
+    branches: [implementacion_de_pruebas_de_fabian_hernandez, master]
+  push:
+    # Ejecuta el workflow en cada push a estas ramas
+    branches: [implementacion_de_pruebas_de_fabian_hernandez, master]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    # Tiempo límite para el trabajo
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+          cache-dependency-path: requirements.txt
+          
+      - name: Install dependencies (incluyendo pytest-html)
+        run: |
+          # Instalar dependencias del proyecto
+          pip install -r requirements.txt
+          # Instalar plugins de testing si no están en requirements.txt
+          pip install pytest-django pytest-html 
+
+      - name: Check Django configuration and project health
+        run: |
+          python -V
+          # NOTA: Necesitas el setting configurado antes de importar Django o hacer 'manage.py check'
+          # Ejecutamos el 'check' en el siguiente paso donde ya está la variable DJANGO_SETTINGS_MODULE
+          echo "Verificando versiones..."
+          
+      - name: Run unit, integration, performance and stress tests
+        # Usamos variables de entorno para establecer el SLA y la carga
+        env:
+          #  ¡CAMBIO CRÍTICO! Aquí se usa tu módulo de settings: 'consultorio.settings'
+          DJANGO_SETTINGS_MODULE: consultorio.settings
+          # Parámetros para las pruebas de rendimiento y estrés
+          SLA_MS: 3000      # Límite de latencia (3 segundos)
+          BURST_USERS: 10   # Usuarios concurrentes para la prueba de estrés
+          BURST_REQUESTS: 50 # Total de peticiones por usuario
+        run: |
+          # Comprobación de salud de Django (ahora sí se ejecuta con el settings correcto)
+          python manage.py check
+          # Ejecuta todas las pruebas excepto las E2E
+          pytest -m "not e2e" \
+                 --html=reporte_perf.html \
+                 --self-contained-html
+          
+      - name: Upload Test Report (HTML)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Test-Report
+          path: reporte_perf.html
+          # Asegura que el reporte se suba incluso si las pruebas fallan
+          if: always()
