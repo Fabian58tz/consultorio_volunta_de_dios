@@ -1,3 +1,6 @@
+:root {
+    --primary-color: #007bff; /* Azul profesional (para guardar) */
+}
 body {
             background-color: #ECA9C6; /* A light pink, similar to the image */
             display: flex;
@@ -83,3 +86,35 @@ body {
         .form-control.is-invalid ~ .invalid-feedback {
             display: block; /* Show when input is invalid */
         }
+        .form-actions-receta .btn-save {
+    background-color: var(--primary-color);
+    color: white;
+}
+.form-actions-receta .btn-save:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+.form-actions-receta {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px; /* Incrementado a 20px para mejor separación */
+    margin-top: 35px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+.form-actions-receta button,
+.form-actions-receta a {
+    padding: 10px 22px; 
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

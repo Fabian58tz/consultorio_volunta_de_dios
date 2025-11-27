@@ -1,0 +1,43 @@
+{% extends 'base_auth.html' %} 
+{% load static %}
+
+{% block content %} 
+<div class="registration-container">
+  <div class="card p-5 shadow-lg w-full max-w-md mx-auto mt-10">
+     <h2 class="text-center mb-4 text-2xl font-semibold text-gray-800">Registro de Usuario</h2>
+ 
+    <form method="post" action="{% url 'registro_usuario' %}">
+       {% csrf_token %}
+
+ <!-- Mostrar el formulario completo de Django -->
+       {% for field in form %}
+
+         <div class="form-group mb-4">
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+               {{ field }}
+             {% if field.help_text %}
+             <small class="form-text text-muted block mt-1">{{ field.help_text }}</small>
+                 {% endif %}
+              {% for error in field.errors %}
+               <div class="alert alert-danger mt-1 text-red-600 text-sm">{{ error }}</div>
+                 {% endfor %}
+                </div>
+                  {% endfor %}
+
+               <div class="form-actions-receta">
+          <button type="submit" class="btn-save">
+            Registrarse
+                  </button>
+         <a href="{% url 'login_page' %}" class="btn btn-secondary cancel-btn flex-grow">
+         Cancelar / Ir a Login
+           </a>
+           </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<!-- Script para cualquier funcionalidad extra si es necesaria -->
+<script src="{% static 'js/pagina_principal.js' %}"></script>
+{% endblock extra_js %}

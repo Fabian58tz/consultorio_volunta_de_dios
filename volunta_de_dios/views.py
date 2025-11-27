@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm # Importa el formulario
 from django.contrib.auth import login, authenticate, logout # Importa funciones de autenticación
 from django.contrib import messages # Para mostrar mensajes (opcional, pero recomendado para errores)
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 def holamundo(request):
     return HttpResponse("<h1>Hola mundo, aprendiendo a programar en python</h1>")
@@ -341,3 +341,30 @@ def eliminar_medico(request, pk):
         return redirect('tabla_medicos') # Redirige a la tabla de médicos después de eliminar
     # Puedes crear una plantilla de confirmación específica si lo deseas
     return render(request, 'confirmar_eliminar_medico.html', {'medico': medico})
+
+def registro_usuario_view(request):
+    """
+    Vista para manejar el registro de nuevos usuarios en el sistema.
+    Asume que la persona que se registra es un 'Paciente' por defecto
+    o un usuario sin privilegios de administrador.
+    """
+    if request.method == 'POST':
+        # 1. Crear una instancia del formulario con los datos recibidos por POST
+        form = UserCreationForm(request.POST) 
+        
+        if form.is_valid():
+            # 2. Guardar el nuevo usuario en la base de datos
+            user = form.save()
+            
+            # NOTA: Aquí podrías añadir lógica adicional:
+            # - Asignar roles: user.groups.add(Group.objects.get(name='Paciente'))
+            # - Crear un perfil de paciente asociado al nuevo usuario
+            
+            # 3. Redirigir al usuario a la página de login o al home
+            return redirect('login_page')  # Asegúrate que 'login_page' es el nombre correcto de tu URL de login
+    else:
+        # 4. Si la petición es GET, mostrar el formulario vacío
+        form = UserCreationForm()
+
+    # Pasar el formulario a la plantilla
+    return render(request, 'registro_usuario.html', {'form': form})
