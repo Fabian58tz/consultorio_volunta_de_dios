@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from volunta_de_dios import views
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,5 +42,7 @@ path('tabla_medicos/', views.tabla_medicos, name='tabla_medicos'),
     # URL para cerrar sesión
     path('logout/', views.logout_view, name='logout_page'),
 path('registro/', views.registro_usuario_view, name='registro_usuario'),
+
+    path('api/', include('api_rest.urls')),    # <--- AÑADE ESTA LÍNEA PARA LA API
 ]
 
